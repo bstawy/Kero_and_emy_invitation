@@ -1,0 +1,134 @@
+:root {
+  --color-background: #ffffff;
+  --color-text: #1f1f1f;
+  --color-primary: #7a5c4f;
+  --color-focus: #005fcc;
+
+  --font-body: Arial, sans-serif;
+  --font-heading: Georgia, serif;
+
+  --container-width: 75rem;
+  --page-padding: 1rem;
+  --section-spacing: clamp(3rem, 8vw, 7rem);
+}
+
+/* ========================================
+   Reset / base
+======================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   Layout utilities
+======================================== */
+.container {
+  width: min(100% - (var(--page-padding) * 2), var(--container-width));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-spacing);
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-text);
+  color: var(--color-background);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Page sections
+======================================== */
+.site-header {
+  /* Add header styles here. */
+}
+
+.site-footer {
+  /* Add footer styles here. */
+}
+
+/* ========================================
+   Responsive adjustments
+======================================== */
+@media (max-width: 48rem) {
+  :root {
+    --page-padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
