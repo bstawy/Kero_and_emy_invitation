@@ -23,10 +23,14 @@ const revealItems = document.querySelectorAll(
   ].join(","),
 );
 
-const heroRevealDelays = [0, 80, 160, 240, 320];
-const heroIntroDuration = 1100;
-const questionTransitionFallback = 800;
-const answerReadingPause = 500;
+const splashTotalDuration = 2500;
+const splashExitDuration = prefersReducedMotion ? 0 : 650;
+const heroRevealDelays = [0, 360, 720, 1080, 1440].map(
+  (delay) => delay + splashExitDuration,
+);
+const heroIntroDuration = 2900 + splashExitDuration;
+const questionTransitionFallback = 1300;
+const answerReadingPause = 270;
 
 heroRevealItems.forEach((element, index) => {
   element.classList.add("reveal");
@@ -105,9 +109,6 @@ const startRevealAnimations = () => {
 
 invitation.inert = true;
 skipLink.inert = true;
-
-const splashTotalDuration = 2500;
-const splashExitDuration = prefersReducedMotion ? 0 : 650;
 
 window.setTimeout(() => {
   splashScreen.classList.add("is-hidden");

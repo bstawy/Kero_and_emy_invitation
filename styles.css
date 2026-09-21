@@ -119,6 +119,43 @@ body.is-splashing {
   will-change: auto;
 }
 
+.hero .reveal {
+  visibility: hidden;
+  translate: 0 0;
+  scale: 1;
+  transition-property: opacity, visibility;
+  transition-duration: 1200ms, 0s;
+  transition-timing-function:
+    cubic-bezier(0.22, 0.61, 0.36, 1), linear;
+  transition-delay:
+    var(--reveal-delay, 0ms), var(--reveal-delay, 0ms);
+}
+
+.hero .reveal.is-visible {
+  visibility: visible;
+}
+
+.hero .childhood-photo.reveal {
+  transition-duration: 1800ms, 0s;
+  transition-timing-function:
+    cubic-bezier(0.4, 0, 0.2, 1), linear;
+}
+
+.hero .ticker.reveal {
+  opacity: 1;
+  transition-property: clip-path, visibility;
+  will-change: clip-path;
+}
+
+.hero .ticker.reveal {
+  clip-path: inset(0 100% 0 0);
+}
+
+.hero .ticker.reveal.is-visible {
+  clip-path: inset(0);
+  will-change: auto;
+}
+
 @supports not (translate: 0 0) {
   .reveal {
     scale: 1;
@@ -171,7 +208,7 @@ p {
 
 .hero {
   position: relative;
-  height: 44.8125rem;
+  height: 41rem;
   padding-top: 1rem;
   text-align: center;
 }
@@ -549,8 +586,16 @@ margin-top: 2rem;
     scale: 1;
   }
 
+  .hero .reveal {
+    visibility: visible;
+  }
+
   .ticker-track {
     animation: none;
     transform: none;
+  }
+
+  .hero .ticker.reveal {
+    clip-path: none;
   }
 }
