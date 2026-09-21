@@ -276,59 +276,55 @@ p {
 }
 
 .dress-code {
-  position: relative;
-  height: 36.25rem;
-  padding-top: 0.875rem;
   text-align: center;
 }
 
 .dress-code h2 {
-  font-size: 1.4375rem;
+  font-size: 2.25rem;
 }
 
 .outfits {
-  position: absolute;
-  top: 4.1875rem;
-  left: 0;
+margin-top: 2rem;
   display: flex;
-  width: 26.875rem;
-  height: 25.625rem;
-  align-items: end;
-  justify-content: center;
-  gap: 0.125rem;
+  width: 100%;
+  height: 100%;
+  align-items: start;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding-inline: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.outfits::-webkit-scrollbar {
+  display: none;
 }
 
 .outfits img {
+  flex: 0 0 auto;
   width: auto;
   max-width: none;
   height: 22.5rem;
   object-fit: contain;
   object-position: center bottom;
+  scroll-snap-align: center;
 }
-
-.outfits img:nth-child(1),
-.outfits img:nth-child(6) {
-  width: 2.0625rem;
-  object-fit: cover;
-}
-
-.outfits img:nth-child(2) { width: 4.9375rem; }
-.outfits img:nth-child(3) { width: 4.75rem; }
-.outfits img:nth-child(4) { width: 4.8125rem; }
-.outfits img:nth-child(5) { width: 4.875rem; }
 
 .palette {
-  position: absolute;
-  top: 31.0625rem;
-  left: 50%;
+  margin-top: 2rem;
+
   display: flex;
-  transform: translateX(-50%);
+  justify-content: center;
 }
 
 .palette span {
-  width: 2.1875rem;
-  height: 2.1875rem;
-  margin-left: -0.25rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  margin-left: -0.65rem;
   border-radius: 50%;
 }
 
@@ -340,21 +336,27 @@ p {
 .palette .ivory { background: #e8e4db; }
 
 .timeline {
-  position: relative;
-  height: 32.0625rem;
+  /* height: 75rem; */
 }
 
 .timeline > h2 {
-  font-size: 1.4375rem;
+  margin-top: 3rem;
+  font-size: 1.75rem;
   text-align: center;
 }
 
+.timeline-img {
+  margin: 0 auto;
+  width: 80%;
+  height: 110svh;
+  object-fit: cover;  
+}
+
 .timeline-line {
-  position: absolute;
-  top: 3.3125rem;
-  left: 0;
-  width: 26.6875rem;
-  height: 28.4375rem;
+  position: relative;
+  width: 30rem;
+  height: 100%;
+  object-fit: fill;
 }
 
 .event {
@@ -404,7 +406,7 @@ p {
 
 .closing {
   position: relative;
-  height: 13.5625rem;
+  height: 18rem;
   padding-top: 2.5rem;
   color: var(--paper);
   background: var(--wine);
@@ -412,14 +414,12 @@ p {
 }
 
 .closing p {
-  font-size: 1.125rem;
-  line-height: 1.8;
+  font-size: 1.25rem;
+  line-height: 1.5;
 }
 
 .closing img {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  margin-top: 2rem;
   width: 26.875rem;
   height: 4.5625rem;
 }
