@@ -233,17 +233,37 @@ p {
   position: absolute;
   bottom: 0;
   left: 0;
-  display: flex;
   width: 100%;
   height: 2.25rem;
-  align-items: center;
-  justify-content: space-around;
-  gap: 2.25rem;
   overflow: hidden;
   color: var(--paper);
   background: var(--wine);
   font-size: 0.71rem;
   white-space: nowrap;
+}
+
+.ticker-track,
+.ticker-group {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.ticker-track {
+  width: max-content;
+  animation: ticker-marquee 16s linear infinite;
+}
+
+.ticker-group {
+  flex-shrink: 0;
+  gap: 2.25rem;
+  padding-right: 2.25rem;
+}
+
+@keyframes ticker-marquee {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .intro {
@@ -527,5 +547,10 @@ margin-top: 2rem;
     opacity: 1;
     translate: 0 0;
     scale: 1;
+  }
+
+  .ticker-track {
+    animation: none;
+    transform: none;
   }
 }

@@ -5,14 +5,33 @@ const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
 
+const heroRevealItems = [
+  "#invitation .hero > .top-flourish",
+  "#invitation .hero > .eyebrow",
+  "#invitation .hero > h1",
+  "#invitation .hero .childhood-photo",
+  "#invitation .hero > .ticker",
+  "#invitation .hero-note-right",
+  "#invitation .hero-note-left",
+].map((selector) => document.querySelector(selector));
 const revealItems = document.querySelectorAll(
   [
-    "#invitation section > *:not(.outfits):not(.palette)",
+    "#invitation section:not(.hero) > *:not(.outfits):not(.palette)",
     "#invitation .outfits > img",
     "#invitation .palette > span",
     "#invitation .closing > *",
   ].join(","),
 );
+
+const heroRevealDelays = [0, 80, 160, 240, 320, 1100, 1450];
+
+heroRevealItems.forEach((element, index) => {
+  element.classList.add("reveal");
+  element.style.setProperty(
+    "--reveal-delay",
+    `${heroRevealDelays[index]}ms`,
+  );
+});
 
 revealItems.forEach((element, index) => {
   element.classList.add("reveal");
@@ -21,9 +40,20 @@ revealItems.forEach((element, index) => {
 
 const startRevealAnimations = () => {
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    heroRevealItems.forEach((element) => element.classList.add("is-visible"));
     revealItems.forEach((element) => element.classList.add("is-visible"));
     return;
   }
+
+  const heroObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+
+      heroRevealItems.forEach((element) => element.classList.add("is-visible"));
+      heroObserver.disconnect();
+    },
+    { threshold: 0.05 },
+  );
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -40,6 +70,7 @@ const startRevealAnimations = () => {
     },
   );
 
+  heroObserver.observe(document.querySelector("#invitation .hero"));
   revealItems.forEach((element) => observer.observe(element));
 };
 
