@@ -64,19 +64,66 @@ body.is-splashing {
   opacity: 1;
   visibility: visible;
   transition:
-    opacity 350ms ease,
-    visibility 0s linear 350ms;
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 650ms;
 }
 
 .splash-screen img {
   width: min(100%, 26.875rem);
   height: auto;
+  animation: splash-arrive 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition:
+    opacity 650ms ease,
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .splash-screen.is-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+.splash-screen.is-hidden img {
+  opacity: 0;
+  transform: scale(1.025);
+}
+
+@keyframes splash-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  translate: 0 1.5rem;
+  scale: 0.985;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, translate, scale;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  will-change: auto;
+}
+
+@supports not (translate: 0 0) {
+  .reveal {
+    scale: 1;
+    translate: none;
+  }
 }
 
 img {
@@ -471,6 +518,14 @@ margin-top: 2rem;
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
   }
 }
