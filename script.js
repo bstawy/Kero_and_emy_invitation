@@ -7,6 +7,7 @@ skipLink.inert = true;
 
 window.setTimeout(() => {
   splashScreen.classList.add("is-hidden");
+  document.documentElement.classList.remove("is-splashing");
   document.body.classList.remove("is-splashing");
   invitation.inert = false;
   skipLink.inert = false;

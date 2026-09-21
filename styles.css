@@ -38,8 +38,18 @@ body {
   line-height: 1.12;
 }
 
+html.is-splashing,
 body.is-splashing {
+  height: 100%;
   overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+body.is-splashing {
+  position: fixed;
+  inset: 0;
+  width: 100%;
 }
 
 .splash-screen {
