@@ -135,10 +135,34 @@ body.is-splashing {
   visibility: visible;
 }
 
+.hero h1.reveal,
 .hero .childhood-photo.reveal {
-  transition-duration: 1800ms, 0s;
+  translate: 0 1rem;
+  scale: 0.985;
+  transition-property: opacity, translate, scale, visibility;
+  transition-duration: 1200ms, 1200ms, 1200ms, 0s;
   transition-timing-function:
-    cubic-bezier(0.4, 0, 0.2, 1), linear;
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    linear;
+  transition-delay:
+    var(--reveal-delay, 0ms),
+    var(--reveal-delay, 0ms),
+    var(--reveal-delay, 0ms),
+    var(--reveal-delay, 0ms);
+}
+
+.hero .childhood-photo.reveal {
+  translate: 0 1.25rem;
+  scale: 0.975;
+  transition-duration: 1600ms, 1600ms, 1600ms, 0s;
+}
+
+.hero h1.reveal.is-visible,
+.hero .childhood-photo.reveal.is-visible {
+  translate: 0 0;
+  scale: 1;
 }
 
 .hero .ticker.reveal {
