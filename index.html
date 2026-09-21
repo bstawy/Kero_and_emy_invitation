@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Kiro and Emy's wedding invitation" />
     <title>Kiro &amp; Emy — Wedding Invitation</title>
+    <link rel="preload" as="image" href="assets/images/BACK 1.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <noscript>
+      <style>
+        .splash-screen { display: none; }
+        body.is-splashing { overflow: auto; }
+      </style>
+    </noscript>
   </head>
-  <body>
+  <body class="is-splashing">
+    <div class="splash-screen" id="splash-screen" aria-hidden="true">
+      <img src="assets/images/BACK 1.png" alt="" />
+    </div>
     <a class="skip-link" href="#invitation">Skip to invitation</a>
     <main id="invitation" class="invitation">
       <section class="hero" aria-labelledby="hero-title">
