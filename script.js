@@ -26,7 +26,7 @@ const revealItems = document.querySelectorAll(
 const heroRevealDelays = [0, 80, 160, 240, 320];
 const heroIntroDuration = 1100;
 const questionTransitionFallback = 800;
-const answerReadingPause = 1000;
+const answerReadingPause = 500;
 
 heroRevealItems.forEach((element, index) => {
   element.classList.add("reveal");
@@ -106,7 +106,7 @@ const startRevealAnimations = () => {
 invitation.inert = true;
 skipLink.inert = true;
 
-const splashTotalDuration = 2000;
+const splashTotalDuration = 2500;
 const splashExitDuration = prefersReducedMotion ? 0 : 650;
 
 window.setTimeout(() => {
