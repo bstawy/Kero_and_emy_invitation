@@ -125,10 +125,8 @@ body.is-splashing {
   scale: 1;
   transition-property: opacity, visibility;
   transition-duration: 1200ms, 0s;
-  transition-timing-function:
-    cubic-bezier(0.22, 0.61, 0.36, 1), linear;
-  transition-delay:
-    var(--reveal-delay, 0ms), var(--reveal-delay, 0ms);
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1), linear;
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms);
 }
 
 .hero .reveal.is-visible {
@@ -142,15 +140,11 @@ body.is-splashing {
   transition-property: opacity, translate, scale, visibility;
   transition-duration: 1200ms, 1200ms, 1200ms, 0s;
   transition-timing-function:
-    cubic-bezier(0.22, 1, 0.36, 1),
-    cubic-bezier(0.22, 1, 0.36, 1),
-    cubic-bezier(0.22, 1, 0.36, 1),
-    linear;
+    cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1), linear;
   transition-delay:
-    var(--reveal-delay, 0ms),
-    var(--reveal-delay, 0ms),
-    var(--reveal-delay, 0ms),
-    var(--reveal-delay, 0ms);
+    var(--reveal-delay, 0ms), var(--reveal-delay, 0ms),
+    var(--reveal-delay, 0ms), var(--reveal-delay, 0ms);
 }
 
 .hero .childhood-photo.reveal {
@@ -396,9 +390,10 @@ p {
   min-height: 2rem;
   align-items: center;
   justify-content: center;
-  margin-top: 0.9rem;margin-bottom: 1rem;
+  margin-top: 0.9rem;
+  margin-bottom: 1rem;
   padding: 0.4375rem 0.6875rem 0.3125rem;
-  border-radius:  0.35rem;
+  border-radius: 0.35rem;
   color: var(--wine);
   background: var(--paper);
   font-size: 1rem;
@@ -432,7 +427,7 @@ p {
 
 .venue p {
   margin-top: 0.0625rem;
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 .venue .location-button {
@@ -453,7 +448,7 @@ p {
 }
 
 .outfits {
-margin-top: 2rem;
+  margin-top: 2rem;
   display: flex;
   width: 100%;
   height: 100%;
@@ -497,12 +492,25 @@ margin-top: 2rem;
   border-radius: 50%;
 }
 
-.palette .black { margin-left: 0; background: #111; }
-.palette .charcoal { background: #353636; }
-.palette .gray { background: #66696a; }
-.palette .taupe { background: #74625b; }
-.palette .beige { background: #ac9f91; }
-.palette .ivory { background: #e8e4db; }
+.palette .black {
+  margin-left: 0;
+  background: #151515;
+}
+.palette .charcoal {
+  background: #262626;
+}
+.palette .gray {
+  background: #6b6b6b;
+}
+.palette .taupe {
+  background: #64473f;
+}
+.palette .beige {
+  background: #dacebe;
+}
+/* .palette .ivory {
+  background: #e8e4db;
+} */
 
 .timeline {
   /* height: 75rem; */
@@ -518,7 +526,7 @@ margin-top: 2rem;
   margin: 0 auto;
   width: 80%;
   height: 110svh;
-  object-fit: cover;  
+  object-fit: cover;
 }
 
 .timeline-line {
@@ -594,7 +602,9 @@ margin-top: 2rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 
   *,
   *::before,

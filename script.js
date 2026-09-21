@@ -30,17 +30,17 @@ const heroRevealDelays = [0, 360, 720, 1080, 1440].map(
 );
 const heroIntroDuration = 2900 + splashExitDuration;
 const questionTransitionFallback = 1300;
-const answerReadingPause = 270;
+const answerTransitionFallback = 1300;
+const answerReadingPause = 150;
 
 heroRevealItems.forEach((element, index) => {
   element.classList.add("reveal");
-  element.style.setProperty(
-    "--reveal-delay",
-    `${heroRevealDelays[index]}ms`,
-  );
+  element.style.setProperty("--reveal-delay", `${heroRevealDelays[index]}ms`);
 });
 
-[heroQuestion, heroAnswer].forEach((element) => element.classList.add("reveal"));
+[heroQuestion, heroAnswer].forEach((element) =>
+  element.classList.add("reveal"),
+);
 
 revealItems.forEach((element, index) => {
   element.classList.add("reveal");
@@ -55,38 +55,6 @@ const startRevealAnimations = () => {
     revealItems.forEach((element) => element.classList.add("is-visible"));
     return;
   }
-
-  const revealHeroConversation = () => {
-    let answerScheduled = false;
-
-    const scheduleAnswer = () => {
-      if (answerScheduled) return;
-
-      answerScheduled = true;
-      window.setTimeout(() => {
-        heroAnswer.classList.add("is-visible");
-      }, answerReadingPause);
-    };
-
-    heroQuestion.addEventListener("transitionend", scheduleAnswer, {
-      once: true,
-    });
-    heroQuestion.classList.add("is-visible");
-
-    // Guarantees the answer sequence even if a browser suppresses transition events.
-    window.setTimeout(scheduleAnswer, questionTransitionFallback);
-  };
-
-  const heroObserver = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) return;
-
-      heroRevealItems.forEach((element) => element.classList.add("is-visible"));
-      window.setTimeout(revealHeroConversation, heroIntroDuration);
-      heroObserver.disconnect();
-    },
-    { threshold: 0.05 },
-  );
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -103,8 +71,57 @@ const startRevealAnimations = () => {
     },
   );
 
+  let followingSectionsStarted = false;
+
+  const revealFollowingSections = () => {
+    if (followingSectionsStarted) return;
+
+    followingSectionsStarted = true;
+    revealItems.forEach((element) => observer.observe(element));
+  };
+
+  const revealHeroConversation = () => {
+    let answerScheduled = false;
+
+    const scheduleAnswer = () => {
+      if (answerScheduled) return;
+
+      answerScheduled = true;
+      window.setTimeout(() => {
+        heroAnswer.addEventListener("transitionend", revealFollowingSections, {
+          once: true,
+        });
+        heroAnswer.classList.add("is-visible");
+      }, answerReadingPause);
+    };
+
+    heroQuestion.addEventListener("transitionend", scheduleAnswer, {
+      once: true,
+    });
+    heroQuestion.classList.add("is-visible");
+
+    // Guarantees the answer sequence even if a browser suppresses transition events.
+    window.setTimeout(scheduleAnswer, questionTransitionFallback);
+    window.setTimeout(
+      revealFollowingSections,
+      questionTransitionFallback +
+        answerReadingPause +
+        answerTransitionFallback,
+    );
+  };
+
+  const heroObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+
+      heroRevealItems.forEach((element) => element.classList.add("is-visible"));
+      window.setTimeout(revealHeroConversation, heroIntroDuration);
+      heroObserver.disconnect();
+    },
+    { threshold: 0.05 },
+  );
+
   heroObserver.observe(document.querySelector("#invitation .hero"));
-  revealItems.forEach((element) => observer.observe(element));
 };
 
 invitation.inert = true;
