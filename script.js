@@ -11,9 +11,9 @@ const heroRevealItems = [
   "#invitation .hero > h1",
   "#invitation .hero .childhood-photo",
   "#invitation .hero > .ticker",
-  "#invitation .hero-note-right",
-  "#invitation .hero-note-left",
 ].map((selector) => document.querySelector(selector));
+const heroQuestion = document.querySelector("#invitation .hero-note-right");
+const heroAnswer = document.querySelector("#invitation .hero-note-left");
 const revealItems = document.querySelectorAll(
   [
     "#invitation section:not(.hero) > *:not(.outfits):not(.palette)",
@@ -23,7 +23,10 @@ const revealItems = document.querySelectorAll(
   ].join(","),
 );
 
-const heroRevealDelays = [0, 80, 160, 240, 320, 1100, 1450];
+const heroRevealDelays = [0, 80, 160, 240, 320];
+const heroIntroDuration = 1100;
+const questionTransitionFallback = 800;
+const answerReadingPause = 1000;
 
 heroRevealItems.forEach((element, index) => {
   element.classList.add("reveal");
@@ -33,6 +36,8 @@ heroRevealItems.forEach((element, index) => {
   );
 });
 
+[heroQuestion, heroAnswer].forEach((element) => element.classList.add("reveal"));
+
 revealItems.forEach((element, index) => {
   element.classList.add("reveal");
   element.style.setProperty("--reveal-delay", `${(index % 4) * 70}ms`);
@@ -41,15 +46,39 @@ revealItems.forEach((element, index) => {
 const startRevealAnimations = () => {
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
     heroRevealItems.forEach((element) => element.classList.add("is-visible"));
+    heroQuestion.classList.add("is-visible");
+    heroAnswer.classList.add("is-visible");
     revealItems.forEach((element) => element.classList.add("is-visible"));
     return;
   }
+
+  const revealHeroConversation = () => {
+    let answerScheduled = false;
+
+    const scheduleAnswer = () => {
+      if (answerScheduled) return;
+
+      answerScheduled = true;
+      window.setTimeout(() => {
+        heroAnswer.classList.add("is-visible");
+      }, answerReadingPause);
+    };
+
+    heroQuestion.addEventListener("transitionend", scheduleAnswer, {
+      once: true,
+    });
+    heroQuestion.classList.add("is-visible");
+
+    // Guarantees the answer sequence even if a browser suppresses transition events.
+    window.setTimeout(scheduleAnswer, questionTransitionFallback);
+  };
 
   const heroObserver = new IntersectionObserver(
     ([entry]) => {
       if (!entry.isIntersecting) return;
 
       heroRevealItems.forEach((element) => element.classList.add("is-visible"));
+      window.setTimeout(revealHeroConversation, heroIntroDuration);
       heroObserver.disconnect();
     },
     { threshold: 0.05 },
